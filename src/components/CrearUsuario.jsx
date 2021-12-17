@@ -10,11 +10,6 @@ export default class CrearUsuario extends React.Component {
 		roles: "",
 	};
 
-	// cambiarValorUsuario = (e) => {
-	// 	const state = this.state;
-	// 	state[e.targe.name] = e.target.value;
-	// 	this.setState({ state });
-	// };
 
    cambiarValorUsuario = (event) => {
 		const state = this.state;
@@ -104,7 +99,7 @@ export default class CrearUsuario extends React.Component {
 						<br />
 						<div className="btn-group" role="group" aria-label="">
 							<button type="submit" className="btn btn-success">
-								Guardar
+								Guardar Usuario
 							</button>
 							<Link to={"/"} className="btn btn-primary">
 								Cancelar

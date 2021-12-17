@@ -144,7 +144,7 @@ export default class CrearTarea extends React.Component {
 							<br />
 							<div className="btn-group" role="group" aria-label="">
 								<button type="submit" className="btn btn-success">
-									Guardar
+									Guardar Tarea
 								</button>
 								<Link to={"/"} className="btn btn-primary">
 									Cancelar

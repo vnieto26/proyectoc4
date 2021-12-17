@@ -16,7 +16,6 @@ class CrearProyecto extends React.Component {
 
 	enviarDatos = (event) => {
 		event.preventDefault();
-
 		const proyecto = {
 			name: this.state.name,
 			description: this.state.description,
@@ -31,7 +30,7 @@ class CrearProyecto extends React.Component {
 			.then((res) => {
 				console.log(res);
 				console.log(res.data);
-				window.location = "/"
+				window.location = "/proyectos"
 			});
 	};
 
@@ -76,7 +75,7 @@ class CrearProyecto extends React.Component {
 						</div>
 						<div className="btn-group" role="group" aria-label="">
 							<button type="submit" className="btn btn-success">
-								Guardar
+								Guardar Proyecto
 							</button>
 							<Link to={"/"} className="btn btn-primary">
 								Cancelar

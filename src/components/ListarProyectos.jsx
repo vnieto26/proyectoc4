@@ -51,7 +51,7 @@ class ListarProyectos extends React.Component {
 			return <div>Cargando...</div>;
 		} else {
 			return (
-				<div className="card">
+				<div className="card border-primary mb-3" >
 					<div className="card-header">
 						<Link className="btn btn-primary" to={"/crearp"}>
 							Nuevo proyecto
@@ -78,7 +78,7 @@ class ListarProyectos extends React.Component {
 										<td>{proyecto.createdAt}</td>
 										<td>
 											<div className="btn-group" role="group" aria-label="">
-												<Link className="btn btn-outline-primary" to={"/editar"}>
+												<Link className="btn btn-outline-primary" to={"/editarp/"+proyecto._id}>
 													Editar
 												</Link>
 												<button

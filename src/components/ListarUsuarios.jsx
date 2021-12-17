@@ -82,7 +82,7 @@ class ListarUsuarios extends React.Component {
 											<div className="btn-group" role="group" aria-label="">
 												<Link
 													className="btn btn-outline-primary"
-													to={"/editaru"}
+													to={"/editaru/"+usuario._id}
 												>
 													Editar
 												</Link>
