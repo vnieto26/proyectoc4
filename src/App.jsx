@@ -11,32 +11,28 @@ import CrearTarea from "./components/CrearTarea";
 import EditarProyecto from "./components/EditarProyecto";
 import Inicio from "./components/Inicio";
 import EditarUsuario from "./components/EditarUsuario";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import EditarTarea from "./components/EditarTarea";
+import Login from "./pages/Login";
+import NavBar from "./components/NavBar";
+import Cerrar from "./pages/Cerrar"
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import useToken from './pages/useToken';
 
 function App() {
+	const { token, setToken } = useToken();
+
+	if (!token) {
+		return <Login setToken={setToken} />;
+	}
 	return (
 		<Router>
-			<nav className="navbar navbar-expand navbar-light bg-light">
-				<div className="nav navbar-nav">
-					<Link className="nav-item nav-link active" to={"/"}>
-						Sistema
-					</Link>
-					<Link className="nav-item nav-link" to={"/proyectos"}>
-						Proyectos
-					</Link>
-					<Link className="nav-item nav-link" to={"/tareas"}>
-						Tareas
-					</Link>
-					<Link className="nav-item nav-link" to={"/usuarios"}>
-						Usuarios
-					</Link>
-				</div>
-			</nav>
+			<NavBar />
 			<div className="container">
 				<br></br>
 				<Routes>
+					{/* <Route path="/" element={<Login />}></Route> */}
 					<Route path="/" element={<Inicio />}></Route>
-					<Route exact path="/proyectos" element={<ListarProyectos />}></Route>
+					<Route path="/proyectos" element={<ListarProyectos />}></Route>
 					<Route path="/crearp" element={<CrearProyecto />}></Route>
 					<Route path="/usuarios" element={<ListarUsuarios />}></Route>
 					<Route path="/crearu" element={<CrearUsuario />}></Route>
@@ -44,6 +40,8 @@ function App() {
 					<Route path="/creart" element={<CrearTarea />}></Route>
 					<Route path="/editarp/:id" element={<EditarProyecto />}></Route>
 					<Route path="/editaru/:id" element={<EditarUsuario />}></Route>
+					<Route path="/editart/:id" element={<EditarTarea />}></Route>
+					<Route path="/cerrar" element={<Cerrar />}></Route>
 				</Routes>
 			</div>
 		</Router>

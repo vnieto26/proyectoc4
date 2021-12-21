@@ -18,6 +18,8 @@ export default function EditarUsuario(props) {
 
 	function enviarDatosUser(event) {
 		event.preventDefault();
+		const tokenString = localStorage.getItem("token");
+		const token = JSON.parse(tokenString);
 		const datos = {
 			username: usuario.username,
 			email: usuario.email,
@@ -25,7 +27,11 @@ export default function EditarUsuario(props) {
 			// roles: usuario.roles,
 		};
 		axios
-			.put(`http://localhost:5000/api/users/${id}`, datos)
+			.put(`http://localhost:5000/api/users/${id}`, datos,{
+				headers: {
+					"x-access-token": token.token,
+				},
+			})
 			.then((response) => setUsuario(response.data.updatedAt));
 		console.log("Datos actualizados");
 		window.location = "/usuarios";
@@ -33,8 +39,14 @@ export default function EditarUsuario(props) {
 
 	const url = `http://localhost:5000/api/users/${id}`;
 	useEffect(() => {
+		const tokenString = localStorage.getItem("token");
+		const token = JSON.parse(tokenString);
 		axios
-			.get(url)
+			.get(url, {
+				headers: {
+					"x-access-token": token.token,
+				},
+			})
 			.then((response) => {
 				console.log(response.data);
 				setUsuario(response.data);

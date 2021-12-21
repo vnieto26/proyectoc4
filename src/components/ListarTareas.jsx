@@ -13,10 +13,12 @@ class ListarTareas extends React.Component {
 	}
 
 	cargarDatosTareas() {
-		axios.get("http://localhost:5000/api/tasks/").then((respuesta) => {
+		axios.get("http://localhost:5000/api/tasks/")
+		.then(((respuesta) => {
 			const tareas = respuesta.data;
+			console.log(tareas)
 			this.setState({ tareas });
-		});
+		}));
 	}
 
 	borrarRegistroTarea = (id) => {
@@ -51,7 +53,7 @@ class ListarTareas extends React.Component {
 			return <div>Cargando...</div>;
 		} else {
 			return (
-				<div className="card">
+				<div className="card border-success mb-3">
 					<div className="card-header">
 						<Link className="btn btn-success" to={"/creart"}>
 							Nueva tarea
@@ -77,12 +79,12 @@ class ListarTareas extends React.Component {
 										{/* <td>{tarea._id}</td> */}
 										<td>{tarea.task}</td>
 										<td>{tarea.state}</td>
-										<td>{tarea.projectId}</td>
-										<td>{tarea.userId}</td>
+										<td>{tarea.projectId.name}</td>
+										<td>{tarea.userId.username}</td>
 										<td>{tarea.createdAt}</td>
 										<td>
 											<div className="btn-group" role="group" aria-label="">
-												<Link className="btn btn-outline-success" to={"/editar"}>
+												<Link className="btn btn-outline-success" to={"/editart/"+tarea._id}>
 													Editar
 												</Link>
 												<button

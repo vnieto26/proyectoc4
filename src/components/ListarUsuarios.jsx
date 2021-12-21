@@ -3,8 +3,6 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
-
-
 class ListarUsuarios extends React.Component {
 	constructor(props) {
 		super(props);
@@ -15,13 +13,25 @@ class ListarUsuarios extends React.Component {
 	}
 
 	cargarDatosUsuarios() {
-		axios.get("http://localhost:5000/api/users/").then((respuesta) => {
-			const usuarios = respuesta.data;
-			this.setState({ usuarios });
-		});
+		const tokenString = localStorage.getItem("token");
+		const token = JSON.parse(tokenString);
+		//console.log(token.token);
+		axios
+			.get("http://localhost:5000/api/users/", {
+				headers: {
+					"x-access-token": token.token,
+				},
+			})
+			.then((respuesta) => {
+				const usuarios = respuesta.data;
+				console.log(usuarios);
+				this.setState({ usuarios });
+			});
 	}
 
 	borrarRegistroUsuario = (id) => {
+		const tokenString = localStorage.getItem("token");
+		const token = JSON.parse(tokenString);
 		swal({
 			title: "Desea borrar el usuario?",
 			text: "El usuario va a hacer borrado y no podrá recuperarse.!",
@@ -31,7 +41,11 @@ class ListarUsuarios extends React.Component {
 		}).then((willDelete) => {
 			if (willDelete) {
 				axios
-					.delete("http://localhost:5000/api/users/" + id)
+					.delete("http://localhost:5000/api/users/"+id, {
+						headers: {
+							"x-access-token": token.token,
+						},
+					})
 					.then((respuesta) => {
 						this.cargarDatosUsuarios();
 					});
@@ -53,7 +67,7 @@ class ListarUsuarios extends React.Component {
 			return <div>Cargando...</div>;
 		} else {
 			return (
-				<div className="card">
+				<div className="card border-info mb-3">
 					<div className="card-header">
 						<Link className="btn btn-info" to={"/crearu"}>
 							Nuevo Usuario
@@ -77,12 +91,12 @@ class ListarUsuarios extends React.Component {
 										{/* <td>{usuario._id}</td> */}
 										<td>{usuario.username}</td>
 										<td>{usuario.email}</td>
-										<td>{usuario.roles}</td>
+										<td>{usuario.roles.name}</td>
 										<td>
 											<div className="btn-group" role="group" aria-label="">
 												<Link
 													className="btn btn-outline-primary"
-													to={"/editaru/"+usuario._id}
+													to={"/editaru/" + usuario._id}
 												>
 													Editar
 												</Link>

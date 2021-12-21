@@ -1,0 +1,9 @@
+body {
+  background: #e6edf5;
+  background: liner-gradiente(to right, #d1c6bb, #f7f4e8);
+}
+.bg {
+  background-image: url("./login1.jpg");
+  background-position: center center;
+  background-size: 165%;
+}

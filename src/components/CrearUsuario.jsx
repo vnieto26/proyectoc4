@@ -10,8 +10,7 @@ export default class CrearUsuario extends React.Component {
 		roles: "",
 	};
 
-
-   cambiarValorUsuario = (event) => {
+	cambiarValorUsuario = (event) => {
 		const state = this.state;
 		state[event.target.name] = event.target.value;
 		this.setState({ state });
@@ -19,32 +18,39 @@ export default class CrearUsuario extends React.Component {
 
 	enviarDatosUsuario = (event) => {
 		event.preventDefault();
+		const tokenString = localStorage.getItem("token");
+		const token = JSON.parse(tokenString);
+		//console.log(token.token)
 		const proyecto = {
 			username: this.state.username,
 			email: this.state.email,
 			password: this.state.password,
 			roles: this.state.roles,
 		};
-
 		axios
 			.post("http://localhost:5000/api/users/", {
 				username: proyecto.username,
 				email: proyecto.email,
 				password: proyecto.password,
 				roles: proyecto.roles,
-				headers: { "Content-Type": "multipart/form-data" },
+				headers: {
+					"Content-Type": "multipart/form-data",
+					"x-access-token": token.token,
+				},
 			})
 			.then((res) => {
 				console.log(res);
 				console.log(res.data);
-				window.location = "/usuarios"
+				window.location = "/usuarios";
 			});
 	};
 
 	render() {
 		return (
 			<div className="card">
-				<div className="card-header"><h4> Crear nuevo Usuario</h4></div>
+				<div className="card-header">
+					<h4> Crear nuevo Usuario</h4>
+				</div>
 				<div className="card-body">
 					<form onSubmit={this.enviarDatosUsuario}>
 						<div className="form-group">
@@ -91,7 +97,7 @@ export default class CrearUsuario extends React.Component {
 								onChange={this.cambiarValorUsuario}
 								required
 							>
-                        <option value="">Seleccione el rol</option>
+								<option value="">Seleccione el rol</option>
 								<option value="admin">Administrador</option>
 								<option value="user">Usuario Estandar</option>
 							</select>
@@ -101,7 +107,7 @@ export default class CrearUsuario extends React.Component {
 							<button type="submit" className="btn btn-success">
 								Guardar Usuario
 							</button>
-							<Link to={"/"} className="btn btn-primary">
+							<Link to={"/usuarios"} className="btn btn-primary">
 								Cancelar
 							</Link>
 						</div>

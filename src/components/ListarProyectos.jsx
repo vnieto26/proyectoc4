@@ -13,7 +13,8 @@ class ListarProyectos extends React.Component {
 	}
 
 	cargarDatos() {
-		axios.get("http://localhost:5000/api/projects/").then((respuesta) => {
+		axios.get("http://localhost:5000/api/projects/")
+		.then((respuesta) => {
 			const proyectos = respuesta.data;
 			this.setState({ proyectos });
 		});

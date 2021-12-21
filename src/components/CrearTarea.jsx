@@ -41,7 +41,7 @@ export default class CrearTarea extends React.Component {
 			.then((res) => {
 				console.log(res);
 				console.log(res.data);
-				window.location = "/tareas"
+				window.location = "/tareas";
 			});
 	};
 
@@ -53,16 +53,26 @@ export default class CrearTarea extends React.Component {
 	}
 
 	cargarUsuario() {
-		axios.get("http://localhost:5000/api/users/").then((respuesta) => {
-			const users = respuesta.data;
-			this.setState({ users });
-		});
+		const tokenString = localStorage.getItem("token");
+		const token = JSON.parse(tokenString);
+		axios
+			.get("http://localhost:5000/api/users/", {
+				headers: {
+					"Content-Type": "multipart/form-data",
+					"x-access-token": token.token,
+				},
+			})
+			.then((respuesta) => {
+				const users = respuesta.data;
+				this.setState({ users });
+			});
 	}
 
 	componentDidMount() {
 		this.cargarProyectos();
 		this.cargarUsuario();
 	}
+	
 
 	render() {
 		const { projects, users } = this.state;
@@ -146,7 +156,7 @@ export default class CrearTarea extends React.Component {
 								<button type="submit" className="btn btn-success">
 									Guardar Tarea
 								</button>
-								<Link to={"/"} className="btn btn-primary">
+								<Link to={"/tareas"} className="btn btn-primary">
 									Cancelar
 								</Link>
 							</div>

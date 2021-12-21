@@ -77,7 +77,7 @@ class CrearProyecto extends React.Component {
 							<button type="submit" className="btn btn-success">
 								Guardar Proyecto
 							</button>
-							<Link to={"/"} className="btn btn-primary">
+							<Link to={"/proyectos"} className="btn btn-primary">
 								Cancelar
 							</Link>
 						</div>
