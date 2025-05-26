@@ -30,10 +30,9 @@ class CrearProyecto extends React.Component {
 			.then((res) => {
 				console.log(res);
 				console.log(res.data);
-				window.location = "/proyectos"
+				window.location = "/proyectos";
 			});
 	};
-
 
 	render() {
 		return (

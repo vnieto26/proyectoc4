@@ -36,10 +36,18 @@ export default function Inicio(props) {
 							<div className="card-header">Tarea</div>
 							<div className="card-body">
 								<h5 className="card-title text-uppercase">{tarea.task}</h5>
-								<p className="card-text">{tarea.projectId.name}</p>
-								<p className="card-text">{tarea.userId.username}</p>
+								<p className="card-text">
+									{tarea.projectId?.name || "Sin proyecto"}
+								</p>
+								<p className="card-text">
+									{tarea.userId?.username || "Sin usuario"}
+								</p>
 								<p className="card-text">{tarea.state}</p>
-								<div className="card-footer text-muted">{tarea.createdAt}</div>
+								<div className="card-footer text-muted">
+									{tarea.createdAt
+										? new Date(tarea.createdAt).toLocaleString()
+										: ""}
+								</div>
 							</div>
 						</div>
 					))}
@@ -61,7 +69,9 @@ export default function Inicio(props) {
 								<h5 className="card-title text-uppercase">{proyecto.name}</h5>
 								<p className="card-text">{proyecto.description}</p>
 								<div className="card-footer text-muted">
-									{proyecto.createdAt}
+									{proyecto.createdAt
+										? new Date(proyecto.createdAt).toLocaleString()
+										: ""}
 								</div>
 							</div>
 						</div>
